@@ -1,5 +1,19 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+In March of 2025, I had the new exciting opportunity to join a new team developing foundational models and AI agents. 
+Since the field of agents is new and rapidly evolving, the number of established texts or formal courses on AI agents is sparse. 
+A common joke in this field is that by the time someone writes a book, half of the content becomes outdated when finished. 
+Instead, most people that I know stay up to date with the latest in the field by continually reading blogs, tweets, and papers.
+However, without a comprehensive text, it can be hard to see how different concepts fit together within the bigger picture. This is true especially when
+definitions are still being debated, new perspectives are still being developed, and new terms are being invented to offer greater conceptual clarity.
+A recent example is the term "context engineering", which gained popularity after a [discussion on X](https://x.com/tobi/status/1935533422589399127){target="_blank"} on June of 2025,
+and was introduced to unify the goals of prompt engineering, history management, tool use, etc. 
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+I started this online book as an attempt to organize and aggregate the lessons I learned along the way as I build agents.
+The structure of a book is helpful as it better organizes concepts and ideas. The book is meant to be online to easily accomodate updates 
+in the field, which are frequent. The contents are drawn from my learnings from research papers, blogs, talks, and the practical experience of building agents.
+My goal is to write in sufficient levels of depth and detail such that it becomes clear how things work "underneath the hood". For example, mechansims are explicitly described and 
+illustrated concretely with code when helpful. It is my belief that it is this level of detail and concreteness that is going to be most helpful for 
+people looking to jump in and start building. Given how new and evolving the field of AI agents are, the definitions and perspectives of this book may not
+necessarily align with everyone's definitions and perspectives, and may not even stand the test of time. Nor is it meant to be comprehensive. However, that is okay as long as it
+proides _one_ valid mental model and helps readers get the bigger picture in order to get started with building agents. 

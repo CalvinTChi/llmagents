@@ -3,14 +3,16 @@ project:
   output-dir: docs
 
 book:
-  title: "AI Agents"
+  title: "LLM Agentic Systems"
   author: "Calvin Chi"
   date: "7/18/2025"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    - part: "Concepts"
+      chapters:
+        - Introduction.ipynb
+        - summary.qmd
+        - references.qmd
 
 bibliography: references.bib
 

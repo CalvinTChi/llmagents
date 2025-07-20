@@ -2,20 +2,54 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "AI Agents",
+    "title": "LLM Agentic Systems",
     "section": "",
-    "text": "Preface\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
+    "text": "Preface\nIn March of 2025, I had the new exciting opportunity to join a new team developing foundational models and AI agents. Since the field of agents is new and rapidly evolving, the number of established texts or formal courses on AI agents is sparse. A common joke in this field is that by the time someone writes a book, half of the content becomes outdated when finished. Instead, most people that I know stay up to date with the latest in the field by continually reading blogs, tweets, and papers. However, without a comprehensive text, it can be hard to see how different concepts fit together within the bigger picture. This is true especially when definitions are still being debated, new perspectives are still being developed, and new terms are being invented to offer greater conceptual clarity. A recent example is the term “context engineering”, which gained popularity after a discussion on X on June of 2025, and was introduced to unify the goals of prompt engineering, history management, tool use, etc.\nI started this online book as an attempt to organize and aggregate the lessons I learned along the way as I build agents. The structure of a book is helpful as it better organizes concepts and ideas. The book is meant to be online to easily accomodate updates in the field, which are frequent. The contents are drawn from my learnings from research papers, blogs, talks, and the practical experience of building agents. My goal is to write in sufficient levels of depth and detail such that it becomes clear how things work “underneath the hood”. For example, mechansims are explicitly described and illustrated concretely with code when helpful. It is my belief that it is this level of detail and concreteness that is going to be most helpful for people looking to jump in and start building. Given how new and evolving the field of AI agents are, the definitions and perspectives of this book may not necessarily align with everyone’s definitions and perspectives, and may not even stand the test of time. Nor is it meant to be comprehensive. However, that is okay as long as it proides one valid mental model and helps readers get the bigger picture in order to get started with building agents.",
     "crumbs": [
       "Preface"
     ]
   },
   {
-    "objectID": "intro.html",
-    "href": "intro.html",
+    "objectID": "Introduction.html",
+    "href": "Introduction.html",
     "title": "1  Introduction",
     "section": "",
-    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "1.1 Prompt\nIn artifical intelligence (AI), an agent is broadly defined as anything that can perceive and act in its own environment (Norvig and Intelligence 2002). With the rise of large language models (LLMs), LLMs are now used to power modern agentic systems by leveraging the general intelligence capabilities of a LLM (Brown et al. 2020). At its best, a LLM can dynamically decide the sequence of steps that need to be executed in order to accomplish a given task, essentially achieving autonomy.\nIn practice, agentic systems differ in the degree of reliance on the LLM as a decision maker, since the increased flexibility that LLMs provide also comes at the cost of reliability. On one end of the spectrum is a LLM workflow, which has LLMs participate in a limited scope within a broader predefined workflow. On the other end of the spectrum is a LLM agent, where the LLM directs its own workflow to accomplish a task. We can illustrate the difference between a workflow and an agent with a customer service chatbot example:\nWhile an agent can tackle tasks more adaptively, it is also less predictable and reliable. On the other hand, workflows are more deterministic and thus more reliable, but they are limited in their ability to tackle more open-ended tasks where there may not be one obvious approach. Choosing between a workflow and an agent requires considering the balance of flexibility and reliability needed for the application. In the rest of this book, the word agent will be used interchangeably with agentic systems, with the distinction between workflows and agents expliclty called out only when necessary.\nBuilding an agentic system from a LLM requires a prompt, tools, and memory. The prompt is piece of text that instructs the LLM on how to behave within the agent application. Tools allow an agent to take actions and is typically assessed by an agentic system in the form of an API. Finally, memory allows an agent to act and behave in a contextualized manner, with user information or conversation history being common memory contexts. Each of these components are the building blocks that can be used to create and shape a LLM agent. Figure 1.1 illustrates an agentic system and its components:\nA prompt is a piece of text that instructs a LLM how to behave within an agent application. A prompt can be organized conceptually into a system prompt, contextual prompt, role prompt, and a user prompt. In the end, they are all concatenated together into a single text input when invoking the LLM (i.e. asking LLM to generate repsonse).\nCome LLM inference time, the process of putting together the final prompt typically involves concatenating the system prompt, one of the role prompts, the contextual prompt with contextual values filled in, and the user input. Below is an example for a bank agent chatbot, using AWS bedrock to access a LLM\nimport boto3\n\nSYSTEM_PROMMPT = \"\"\"\n&lt;instruction&gt;\nYou are a helpful agent for XYZ bank. You are ALWAYS patient, helpful, and always try to \nassist the user in the best way possible. \n&lt;/instruction&gt;\n\"\"\"\n\nROLE_PROMPT_REPORTING = \"\"\"\nYou are tasked with account reporting. \nUse the following function to look up the account information:\n\n{\n    \"function_name\": \"account_lookup\",\n    \"description\": \"a tool to retrieve account information for a user.\",\n    \"arguments\": {\n        \"username\": {\"type\": str, \"description\": \"user name\"},\n        \"security_code\": {\"type\": str, \"description\": \"security code\"}\n    }\n}\n\nNEVER reveal account Ids.\n\"\"\"\n\nCONTEXTUAL_PROMPT = \"\"\"\nUse below account information &lt;account&gt; about the customer:\n\n&lt;account&gt;\nUsername: {username}\naccount_type: {account_type}\n&lt;/account&gt;\n\"\"\"\n\nuser_input = \"Can you get the ending balance of each month for 2024?\"\nbedrock_runtime = boto3.client(\"bedrock-runtime\", region_name=\"us-west-1\")\nbedrock_runtime_response = bedrock_runtime.converse(\n    modelId = \"us.anthropic.claude-3-7-sonnet-20250219-v1:0\",\n    system = [\n                {'text': SYSTEM_PROMMPT}, \n                {'text': ROLE_PROMPT_REPORTING}, \n                {'text': CONTEXTUAL_PROMPT.format(username = \"caleb\", \n                                                  account_type = \"savigns\")}\n    ],\n    messages = [{\"role\": \"user\", \"content\": [{\"text\": user_input}]}]\n)\nAccording to Anthropic, using XML tags in your prompts can help Claude models parse specific components in your prompt more easily. For example, better identifying which part of the prompt is the system prompt by the &lt;instruction&gt; tag. As a heuristic, capitalize words for emphasis, such as the words “NEVER” or “ALWAYS”.",
     "crumbs": [
+      "Concepts",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "Introduction.html#prompt",
+    "href": "Introduction.html#prompt",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "System prompt: contains high level instructions that should always be applied and thus is always part of the input text when invoking a LLM. Typically, the system prompt contains instructions asking the LLM to be a helpful and patient agent.\nRole prompt: in an agentic system, LLMs may be required to behave differently depending on the scenario. For example, in multi-agent collaboration where multiple specialized agents communicate together to solve as task, each specialized agent will need a role prompt. To implement this behavior, multiple role prompts are maintained and a specific role prompt is selected and concatenated with the remaining prompts depending on the scenario or role.\nUser prompt: the question or instruction from the user of the agent application. The user prompt is typically appended to the end of the final prompt that is passed to the LLM.\nContextual prompt: catch-all prompt for all contextual details needed for an agent to respond to a user request. For industry applications, this could be the account information of the user in the current conversation session. Having a contextual prompt is important for a good and safe user experience as it saves the user from having to state user information that might be later used by the agent.",
+    "crumbs": [
+      "Concepts",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "Introduction.html#tools",
+    "href": "Introduction.html#tools",
+    "title": "1  Introduction",
+    "section": "1.2 Tools",
+    "text": "1.2 Tools",
+    "crumbs": [
+      "Concepts",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "Introduction.html#memory",
+    "href": "Introduction.html#memory",
+    "title": "1  Introduction",
+    "section": "1.3 Memory",
+    "text": "1.3 Memory\n\ndef tool(city):\n    if city == \"New York\":\n        return \"The weather in New York is sunny.\"\n    elif city == \"Los Angeles\":\n        return \"The weather in Los Angeles is warm.\"\n    else:\n        return \"Weather information for this city is not available.\"\n\n\n\n\n\nBrown, Tom, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan, Prafulla Dhariwal, Arvind Neelakantan, et al. 2020. “Language Models Are Few-Shot Learners.” Advances in Neural Information Processing Systems 33: 1877–1901.\n\n\nNorvig, P Russel, and S Artificial Intelligence. 2002. “A Modern Approach.” Prentice Hall Upper Saddle River, NJ, USA: Rani, M., Nayak, R., & Vyas, OP (2015). An Ontology-Based Adaptive Personalized e-Learning System, Assisted by Software Agents on Cloud Storage. Knowledge-Based Systems 90: 33–48.",
+    "crumbs": [
+      "Concepts",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
   },
@@ -26,6 +60,7 @@
     "section": "",
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
+      "Concepts",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Summary</span>"
     ]
   },
@@ -34,8 +69,9 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "Brown, Tom, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan,\nPrafulla Dhariwal, Arvind Neelakantan, et al. 2020. “Language\nModels Are Few-Shot Learners.” Advances in Neural Information\nProcessing Systems 33: 1877–1901.\n\n\nNorvig, P Russel, and S Artificial Intelligence. 2002. “A Modern\nApproach.” Prentice Hall Upper Saddle River, NJ, USA: Rani,\nM., Nayak, R., & Vyas, OP (2015). An Ontology-Based Adaptive\nPersonalized e-Learning System, Assisted by Software Agents on Cloud\nStorage. Knowledge-Based Systems 90: 33–48.",
     "crumbs": [
+      "Concepts",
       "References"
     ]
   }
