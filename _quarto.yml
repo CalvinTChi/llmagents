@@ -10,11 +10,8 @@ book:
     - index.qmd
     - part: "Concepts"
       chapters:
-        - Introduction.ipynb
-        - summary.qmd
-        - references.qmd
-
-bibliography: references.bib
+        - introduction.ipynb
+        - context.ipynb
 
 format:
   html:
@@ -24,5 +21,4 @@ format:
   pdf:
     documentclass: scrreprt
 
-
-
+bibliography: references.bib

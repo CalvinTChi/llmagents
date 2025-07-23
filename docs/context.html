@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>References – LLM Agentic Systems</title>
+<title>2&nbsp; Context Engineering – LLM Agentic Systems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,6 +24,7 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -49,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./summary.html" rel="prev">
+<link href="./introduction.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -100,7 +101,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./context.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -142,20 +143,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">References</span></a>
+  <a href="./context.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></span></a>
   </div>
 </li>
       </ul>
@@ -165,15 +160,21 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./context.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></h1>
 </div>
 
 
@@ -190,23 +191,22 @@ div.csl-indent {
 </header>
 
 
+<p>LLMs are trending towards having longer context windows, capable of processing upwards of millions of tokens. This is regarded as beneficial overall, as larger contexts allow a model to process more information and solve more complex problems. However, research from Chroma showed that model performance degrades as context length increases, a phenomenom their research team coined “context rot” <span class="citation" data-cites="hong2025context">(<a href="#ref-hong2025context" role="doc-biblioref">Hong, Troynikov, and Huber 2025</a>)</span>.</p>
+<ul>
+<li>https://research.trychroma.com/context-rot</li>
+<li>https://www.philschmid.de/context-engineering</li>
+<li>https://blog.langchain.com/context-engineering-for-agents/</li>
+</ul>
+<section id="references" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+
+
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-brown2020language" class="csl-entry" role="listitem">
-Brown, Tom, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared D Kaplan,
-Prafulla Dhariwal, Arvind Neelakantan, et al. 2020. <span>“Language
-Models Are Few-Shot Learners.”</span> <em>Advances in Neural Information
-Processing Systems</em> 33: 1877–1901.
-</div>
-<div id="ref-norvig2002modern" class="csl-entry" role="listitem">
-Norvig, P Russel, and S Artificial Intelligence. 2002. <span>“A Modern
-Approach.”</span> <em>Prentice Hall Upper Saddle River, NJ, USA: Rani,
-M., Nayak, R., &amp; Vyas, OP (2015). An Ontology-Based Adaptive
-Personalized e-Learning System, Assisted by Software Agents on Cloud
-Storage. Knowledge-Based Systems</em> 90: 33–48.
+<div id="ref-hong2025context" class="csl-entry" role="listitem">
+Hong, Kelly, Anton Troynikov, and Jeff Huber. 2025. <span>“Context Rot: How Increasing Input Tokens Impacts LLM Performance.”</span> Chroma. <a href="https://research.trychroma.com/context-rot">https://research.trychroma.com/context-rot</a>.
 </div>
 </div>
-
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -610,8 +610,8 @@ Storage. Knowledge-Based Systems</em> 90: 33–48.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./summary.html" class="pagination-link" aria-label="Summary">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summary</span></span>
+      <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
