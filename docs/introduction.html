@@ -258,7 +258,7 @@ Figure&nbsp;1.1: An agentic system and its components. Dotted and double-sided a
 <li><strong>Contextual prompt</strong>: catch-all prompt for all contextual details needed for an agent to respond to a user request. For industry applications, this could be the account information of the user in the current conversation session. Having a contextual prompt is important for a good and safe user experience as it saves the user from having to state user information that might be later used by the agent.</li>
 </ul>
 <p>Come LLM inference time, the process of putting together the final prompt typically involves concatenating the system prompt, one of the role prompts, the contextual prompt with contextual values filled in, and the user input. Below is an example for a bank agent chatbot, using AWS bedrock to access a LLM</p>
-<div id="55aa813e-4f36-418b-aa49-3bd150b9a211" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;raw&quot;}}">
+<div id="f80deecd-c869-4fdf-960c-233a936f146d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;raw&quot;}}">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>SYSTEM_PROMMPT <span class="op">=</span> <span class="st">"""</span></span>
@@ -363,7 +363,7 @@ Figure&nbsp;1.1: An agentic system and its components. Dotted and double-sided a
 <pre><code>Temperature for Tuesday is 27C</code></pre>
 </div>
 </div>
-<p>Figure <a href="#fig-2" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> shows the life cycle of a function call, and shows that the role of a LLM in tool calling is to map the user question to the corresponding tool call JSON output.</p>
+<p><a href="#fig-2" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> shows the life cycle of a function call, and shows that the role of a LLM in tool calling is to map the user question to the corresponding tool call JSON output.</p>
 <div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
