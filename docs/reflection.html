@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Context Engineering – LLM Agentic Systems</title>
+<title>3&nbsp; Reflection – LLM Agentic Systems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,8 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./reflection.html" rel="next">
-<link href="./introduction.html" rel="prev">
+<link href="./context.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -102,7 +101,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./context.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./reflection.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reflection</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -150,13 +149,13 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./context.html" class="sidebar-item-text sidebar-link active">
+  <a href="./context.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./reflection.html" class="sidebar-item-text sidebar-link">
+  <a href="./reflection.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reflection</span></span></a>
   </div>
 </li>
@@ -172,16 +171,17 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  <li><a href="#self-correction-with-external-feedback" id="toc-self-correction-with-external-feedback" class="nav-link active" data-scroll-target="#self-correction-with-external-feedback"><span class="header-section-number">3.1</span> Self-Correction with External Feedback</a></li>
+  <li><a href="#react" id="toc-react" class="nav-link" data-scroll-target="#react"><span class="header-section-number">3.2</span> ReAct</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./context.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./reflection.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reflection</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reflection</span></h1>
 </div>
 
 
@@ -198,37 +198,53 @@ div.csl-indent {
 </header>
 
 
-<p>LLMs are trending towards having longer context windows, capable of processing upwards of millions of tokens. This is regarded as beneficial overall, as larger contexts allow a model to process more information and solve more complex problems. However, research from Chroma showed that model performance degrades as context length increases, a phenomenom their research team coined “context rot” <span class="citation" data-cites="hong2025context">(<a href="#ref-hong2025context" role="doc-biblioref">Hong, Troynikov, and Huber 2025</a>)</span>. Specifically, they observed this phenomenon by evaluating LLMs on the Needle in a Haystack (NIAH) task, where the LLM is instructed to answer a question where the answer (i.e.&nbsp;needle) is embedded in a larger, unrelated body of text (i.e.&nbsp;haystack). Traditionally, the needle for a question can be identified via lexical matching, or exact matching on words or phrases. For example:</p>
-<blockquote class="blockquote">
-<p>Question: Which book sparked my interest in AI?</p>
-<p>Needle: The book which sparked my interest in AI is “The Worlds I see”.</p>
-</blockquote>
-<p>A needle can also be identified through semantic matching or via a LLM’s world knowledge that do not involve lexcial matching. For example:</p>
-<blockquote class="blockquote">
-<p>Question: Which professor had prior experience in theoretical research?</p>
-<p>Needle: Ten years ago, Ms.&nbsp;Carter spent a decade at the Institute for Advanced Study.</p>
-</blockquote>
-<p>In the above example, in order to identify the needle, the LLM had to utilize its world knowledge that the Institute for Advanced Study is a center for theoretical research as well as semantic identification of the needle’s relevance to the question. There are no overlapping words between the question and needle in this case.</p>
-<p>Using the NIAH task, the Chroma team carried out a series of controlled experiments to show that performance generally degrades with longer contexts. The key findings are:</p>
-<ul>
-<li>When the task complexity is held constant by keeping the question-needle embedding cosine similarity the same, model performance degrades with context length. The performance decline tends to be more rapid for question-needle pairs that are more dissimilar.</li>
-<li>The decline in performance is also influenced by distractors (i.e.&nbsp;text chunks that are topically related to the needle but does not answer the question), the content of the haystack, and the structural coherency of the haystack (i.e.&nbsp;randomly shuffled sentences or not).</li>
-<li>No evidence that needle position in the haystack influences performance.</li>
-</ul>
-<p>For a broader discussion on the types of long context problems, such poisoning, distraction, confusion, or clash, refer to this <a href="https://www.dbreunig.com/2025/06/22/how-contexts-fail-and-how-to-fix-them.html?ref=blog.langchain.com">blog post</a> by Drew Breunig.</p>
-<p>Together, these findings suggest that managing the context of the LLM is important for effectiveness. Specifically, that the LLM’s context window should be filled with relevant content for a given task, but no more, in order to be maximally effective. This context management effort is now coined the term “context engineering”, commonly defined as “the art of providing all the context for the task to be plausibly solvable by the LLM”. Context engineering regards everything that is inputted into a LLM as context, which includes memory, prompts, information from retrieved for RAG, etc.</p>
-<p>A <a href="https://blog.langchain.com/context-engineering-for-agents/">langchain blog post</a> summarizes common context engineering patterns, which include writing context to offload information for later use, information selection for the context window, compression, and isolation. A few concrete tactics include performing RAG on tool descriptions to shrink the tool-selection space to a smaller and more relevant set of tools, periodically summarizing past conversations (implemented by Claude Code and ChatDev), and multi-agent architectures where subagents own their own isolated context so that the overall agentic system is effectively using an expanded context window.</p>
-<p>Context compression is a key tactic used by ChatDev to implement multi-agent collaboration for software development <span class="citation" data-cites="qian2023chatdev">(<a href="#ref-qian2023chatdev" role="doc-biblioref">Qian et al. 2023</a>)</span>, where the conversation history between two subagents for each software development phase is summarized into the solution. This solution then serves as the start context for the next phase of subagent-to-subagent dialog to tackle another set of tasks. This intuitively makes sense because only the solutions of subproblems are necessary for solving the bigger problem, and the process for solving the subproblems is usually irrelevant.</p>
-<section id="references" class="level1 unnumbered">
-<h1 class="unnumbered">References</h1>
+<p>Reflection is one of the most effective design patterns for agents, where a LLM enters into an iterative loop of problem solving and receiving feedback until a solution is reached. This feedback can be external or intrinsic, where external feedback refers to receiving feedback from external evaluators such as humans, code execution output, or unit test results, and intrinsic feedback refers to self-critique from the same LLM on its previous response. The reflection process is depicted in <a href="#fig-1" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>.</p>
+<div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./pics/reflection.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: The reflection process of iteratively using feedback to improve LLM output. Dotted arrows indicate optionality in how the LLM output is processed into feedback, which can be provided by the same LLM (intrinsic feedback), by an external evaluator (external feedback), or both.
+</figcaption>
+</figure>
+</div>
+<p>There has been some debate regarding whether self-feedback from the same LLM alone can drive performance improvements. Madaan <em>et al.</em> introduced Self-Refine, a reflection framework that relies completely on intrinsic feedback <span class="citation" data-cites="madaan2023self">(<a href="#ref-madaan2023self" role="doc-biblioref">Madaan et al. 2023</a>)</span>. After the initial response construction, each iteration of Self-Refine consists of the steps of feedback and refinement. Each step uses the same LLM, but differs in the prompt that contains instructions (e.g.&nbsp;instructions for feedback or refinement) and few-shot examples. Empirically, this was shown to improve performance materially, with most of the improvement occurring in the initial iterations of reflection. However, the improvement is not necessarily monotonic, and Madaan <em>et al.</em> observed that Self-Refine was most effective when the feedback is specific, actionable, or broken down into different evaluation dimensions. However, another group of researchers from Google DeepMind independently assessed instrinsic self-correction and found that its effectiveness was limited, instead causing performance degradation with each self-refine iteration <span class="citation" data-cites="huang2023large">(<a href="#ref-huang2023large" role="doc-biblioref">Huang et al. 2023</a>)</span>. They concluded that this discrepancy was caused by flawed experimental design from the Self-Refine study where the complete set of requirements was included in the feedback prompt instead of the initial response instruction. As a result, it is unclear whether the improvement was due to “leakage” of requirements from the feedback or from the iterative process of self-improvement. When the complete set of requirements was included in the initial response instruction, Huang <em>et al.</em> observed that standard prompting outperformed Self-Refine.</p>
+<p>These studies show that in order to reliably improve after reflection, external feedback is necessary. Intuitively, this makes sense because if the bottleneck of performance is due to the lack of certain parametric knowledge (i.e.&nbsp;knowledge trained into the weights of a model), then feedback from the same LLM is unlikely to provide the missing knowledge required to arrive at the solution. We next introduce self-correction from external feedback and ReAct as effective reflection examples that make use of external feedback or external signal to drive performance beyond prompting a LLM in isolation.</p>
+<section id="self-correction-with-external-feedback" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="self-correction-with-external-feedback"><span class="header-section-number">3.1</span> Self-Correction with External Feedback</h2>
+<p>Multiple works of research has shown that external feedback reliably and materially improves performance on the problem an agent is trying to solve, with the LLM self-correcting its previous response using the provided feedback <span class="citation" data-cites="chen2023teaching shinn2023reflexion gou2023critic">(<a href="#ref-chen2023teaching" role="doc-biblioref">Chen et al. 2023</a>; <a href="#ref-shinn2023reflexion" role="doc-biblioref">Shinn et al. 2023</a>; <a href="#ref-gou2023critic" role="doc-biblioref">Gou et al. 2023</a>)</span>. Gou <em>et al.</em> introduced a simple version of this by using a set of tools through which critiques on correctness are obtained. The critiques are used by the LLM to improve its previous response, and the loop terminates when the critiques determine the latest response to be correct <span class="citation" data-cites="gou2023critic">(<a href="#ref-gou2023critic" role="doc-biblioref">Gou et al. 2023</a>)</span>. Shinn <em>et al.</em> introduced the Reflexion framework that added more bells and whistles by (1) integrating LLM-driven self-reflection with external feedback signal to serve as the final feedback and (2) incorporating short-term memory of conversation history (i.e.&nbsp;trajectory) and long-term memory of past verbal feedback. By using an evaluator LLM to score the latest LLM response and using another LLM to suggest actionable feedback based on the score, Reflexion improves the quality of the feedback. With memory of the LLM’s past interactions with the envornment and their outcomes, the actor LLM essentially undergoes reinforcement learning based on in-context learning examples. The Reflexion framework is best illustrated with the diagram in <a href="introduction.html#fig-2" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>.</p>
+<div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./pics/reflexion.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: Reflexion framework. Source: “Reflexion: Language Agents with Verbal Reinforcement Learning” (https://arxiv.org/pdf/2303.11366).
+</figcaption>
+</figure>
+</div>
+<p>Finally, Chen <em>et al.</em> applied reflection to programming agents to simulate rubber duck debugging, where debugging is done by explaining code and following the execution results <span class="citation" data-cites="chen2023teaching">(<a href="#ref-chen2023teaching" role="doc-biblioref">Chen et al. 2023</a>)</span>. Like Reflexion, the feedback step includes both the external signal (from code execution) and a LLM generated explanation of the code as the final feedback provided to the same LLM for the next iteration of code generation. In agreement with other research, the authors found that receiving feedback from code execution is important for improving performance consistently.</p>
+</section>
+<section id="react" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="react"><span class="header-section-number">3.2</span> ReAct</h2>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-hong2025context" class="csl-entry" role="listitem">
-Hong, Kelly, Anton Troynikov, and Jeff Huber. 2025. <span>“Context Rot: How Increasing Input Tokens Impacts LLM Performance.”</span> Chroma. <a href="https://research.trychroma.com/context-rot">https://research.trychroma.com/context-rot</a>.
+<div id="ref-chen2023teaching" class="csl-entry" role="listitem">
+Chen, Xinyun, Maxwell Lin, Nathanael Schärli, and Denny Zhou. 2023. <span>“Teaching Large Language Models to Self-Debug.”</span> <em>arXiv Preprint arXiv:2304.05128</em>.
 </div>
-<div id="ref-qian2023chatdev" class="csl-entry" role="listitem">
-Qian, Chen, Wei Liu, Hongzhang Liu, Nuo Chen, Yufan Dang, Jiahao Li, Cheng Yang, et al. 2023. <span>“Chatdev: Communicative Agents for Software Development.”</span> <em>arXiv Preprint arXiv:2307.07924</em>.
+<div id="ref-gou2023critic" class="csl-entry" role="listitem">
+Gou, Zhibin, Zhihong Shao, Yeyun Gong, Yelong Shen, Yujiu Yang, Nan Duan, and Weizhu Chen. 2023. <span>“Critic: Large Language Models Can Self-Correct with Tool-Interactive Critiquing.”</span> <em>arXiv Preprint arXiv:2305.11738</em>.
+</div>
+<div id="ref-huang2023large" class="csl-entry" role="listitem">
+Huang, Jie, Xinyun Chen, Swaroop Mishra, Huaixiu Steven Zheng, Adams Wei Yu, Xinying Song, and Denny Zhou. 2023. <span>“Large Language Models Cannot Self-Correct Reasoning Yet.”</span> <em>arXiv Preprint arXiv:2310.01798</em>.
+</div>
+<div id="ref-madaan2023self" class="csl-entry" role="listitem">
+Madaan, Aman, Niket Tandon, Prakhar Gupta, Skyler Hallinan, Luyu Gao, Sarah Wiegreffe, Uri Alon, et al. 2023. <span>“Self-Refine: Iterative Refinement with Self-Feedback.”</span> <em>Advances in Neural Information Processing Systems</em> 36: 46534–94.
+</div>
+<div id="ref-shinn2023reflexion" class="csl-entry" role="listitem">
+Shinn, Noah, Federico Cassano, Beck Labash, Ashwin Gopinath, Karthik Narasimhan, and Shunyu Yao. 2023. <span>“Reflexion: Language Agents with Verbal Reinforcement Learning, 2023.”</span> <em>URL Https://Arxiv. Org/Abs/2303.11366</em> 1.
 </div>
 </div>
 </section>
@@ -635,14 +651,11 @@ Qian, Chen, Wei Liu, Hongzhang Liu, Nuo Chen, Yufan Dang, Jiahao Li, Cheng Yang,
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      <a href="./context.html" class="pagination-link" aria-label="Context Engineering">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Context Engineering</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./reflection.html" class="pagination-link" aria-label="Reflection">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reflection</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

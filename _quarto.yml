@@ -12,6 +12,7 @@ book:
       chapters:
         - introduction.ipynb
         - context.ipynb
+        - reflection.ipynb
 
 format:
   html:
