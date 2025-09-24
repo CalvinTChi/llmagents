@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -53,14 +88,15 @@ div.csl-indent {
 <link href="./context.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-766311481016d4dcfd75374a85ea02ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -89,6 +125,35 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -114,7 +179,9 @@ div.csl-indent {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">LLM Agentic Systems</a> 
     </div>
@@ -173,6 +240,7 @@ div.csl-indent {
   <ul>
   <li><a href="#self-correction-with-external-feedback" id="toc-self-correction-with-external-feedback" class="nav-link active" data-scroll-target="#self-correction-with-external-feedback"><span class="header-section-number">3.1</span> Self-Correction with External Feedback</a></li>
   <li><a href="#react" id="toc-react" class="nav-link" data-scroll-target="#react"><span class="header-section-number">3.2</span> ReAct</a></li>
+  <li><a href="#llm-as-optimizers" id="toc-llm-as-optimizers" class="nav-link" data-scroll-target="#llm-as-optimizers"><span class="header-section-number">3.3</span> LLM as Optimizers</a></li>
   </ul>
 </nav>
     </div>
@@ -198,7 +266,7 @@ div.csl-indent {
 </header>
 
 
-<p>Reflection is one of the most effective design patterns for agents, where a LLM enters into an iterative loop of problem solving and receiving feedback until a solution is reached. This feedback can be external or intrinsic, where external feedback refers to receiving feedback from external evaluators such as humans, code execution output, or unit test results, and intrinsic feedback refers to self-critique from the same LLM on its previous response. The reflection process is depicted in <a href="#fig-1" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>.</p>
+<p>Reflection is one of the most effective design patterns for agents, where a LLM enters into an iterative loop of problem solving and feedback until a solution is reached. This feedback can be external or intrinsic, where external feedback refers to receiving feedback from external evaluators such as humans, code execution output, or unit test results, and intrinsic feedback refers to self-critique from the same LLM on its previous response. The reflection process is depicted in <a href="#fig-1" class="quarto-xref">Figure&nbsp;<span>3.1</span></a>.</p>
 <div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -210,16 +278,16 @@ Figure&nbsp;3.1: The reflection process of iteratively using feedback to improve
 </figure>
 </div>
 <p>There has been some debate regarding whether self-feedback from the same LLM alone can drive performance improvements. Madaan <em>et al.</em> introduced Self-Refine, a reflection framework that relies completely on intrinsic feedback <span class="citation" data-cites="madaan2023self">(<a href="#ref-madaan2023self" role="doc-biblioref">Madaan et al. 2023</a>)</span>. After the initial response construction, each iteration of Self-Refine consists of the steps of feedback and refinement. Each step uses the same LLM, but differs in the prompt that contains instructions (e.g.&nbsp;instructions for feedback or refinement) and few-shot examples. Empirically, this was shown to improve performance materially, with most of the improvement occurring in the initial iterations of reflection. However, the improvement is not necessarily monotonic, and Madaan <em>et al.</em> observed that Self-Refine was most effective when the feedback is specific, actionable, or broken down into different evaluation dimensions. However, another group of researchers from Google DeepMind independently assessed instrinsic self-correction and found that its effectiveness was limited, instead causing performance degradation with each self-refine iteration <span class="citation" data-cites="huang2023large">(<a href="#ref-huang2023large" role="doc-biblioref">Huang et al. 2023</a>)</span>. They concluded that this discrepancy was caused by flawed experimental design from the Self-Refine study where the complete set of requirements was included in the feedback prompt instead of the initial response instruction. As a result, it is unclear whether the improvement was due to “leakage” of requirements from the feedback or from the iterative process of self-improvement. When the complete set of requirements was included in the initial response instruction, Huang <em>et al.</em> observed that standard prompting outperformed Self-Refine.</p>
-<p>These studies show that in order to reliably improve after reflection, external feedback is necessary. Intuitively, this makes sense because if the bottleneck of performance is due to the lack of certain parametric knowledge (i.e.&nbsp;knowledge trained into the weights of a model), then feedback from the same LLM is unlikely to provide the missing knowledge required to arrive at the solution. We next introduce self-correction from external feedback and ReAct as effective reflection examples that make use of external feedback or external signal to drive performance beyond prompting a LLM in isolation.</p>
+<p>These studies show that in order to reliably improve after reflection, external feedback is necessary. Intuitively, this makes sense because if the bottleneck of performance is due to the lack of certain parametric knowledge (i.e.&nbsp;knowledge trained into the weights of a model), then feedback from the same LLM is unlikely to provide the missing knowledge required to arrive at the solution. We next introduce self-correction from external feedback and ReAct as effective reflection examples that make use of external feedback or signal to drive performance beyond prompting a LLM in isolation.</p>
 <section id="self-correction-with-external-feedback" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="self-correction-with-external-feedback"><span class="header-section-number">3.1</span> Self-Correction with External Feedback</h2>
-<p>Multiple works of research has shown that external feedback reliably and materially improves performance on the problem an agent is trying to solve, with the LLM self-correcting its previous response using the provided feedback <span class="citation" data-cites="chen2023teaching shinn2023reflexion gou2023critic">(<a href="#ref-chen2023teaching" role="doc-biblioref">Chen et al. 2023</a>; <a href="#ref-shinn2023reflexion" role="doc-biblioref">Shinn et al. 2023</a>; <a href="#ref-gou2023critic" role="doc-biblioref">Gou et al. 2023</a>)</span>. Gou <em>et al.</em> introduced a simple version of this by using a set of tools through which critiques on correctness are obtained. The critiques are used by the LLM to improve its previous response, and the loop terminates when the critiques determine the latest response to be correct <span class="citation" data-cites="gou2023critic">(<a href="#ref-gou2023critic" role="doc-biblioref">Gou et al. 2023</a>)</span>. Shinn <em>et al.</em> introduced the Reflexion framework that added more bells and whistles by (1) integrating LLM-driven self-reflection with external feedback signal to serve as the final feedback and (2) incorporating short-term memory of conversation history (i.e.&nbsp;trajectory) and long-term memory of past verbal feedback. By using an evaluator LLM to score the latest LLM response and using another LLM to suggest actionable feedback based on the score, Reflexion improves the quality of the feedback. With memory of the LLM’s past interactions with the envornment and their outcomes, the actor LLM essentially undergoes reinforcement learning based on in-context learning examples. The Reflexion framework is best illustrated with the diagram in <a href="introduction.html#fig-2" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>.</p>
-<div id="fig-1" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<p>Multiple works of research has shown that external feedback reliably and materially improves performance on the problem an agent is trying to solve, with the LLM self-correcting its previous response using the provided feedback <span class="citation" data-cites="chen2023teaching shinn2023reflexion gou2023critic">(<a href="#ref-chen2023teaching" role="doc-biblioref">Chen et al. 2023</a>; <a href="#ref-shinn2023reflexion" role="doc-biblioref">Shinn et al. 2023</a>; <a href="#ref-gou2023critic" role="doc-biblioref">Gou et al. 2023</a>)</span>. Gou <em>et al.</em> introduced a simple version of this by using a set of tools through which critiques on correctness are obtained. The critiques are used by the LLM to improve its previous response, and the loop terminates when the critiques determine the latest response to be correct <span class="citation" data-cites="gou2023critic">(<a href="#ref-gou2023critic" role="doc-biblioref">Gou et al. 2023</a>)</span>. Shinn <em>et al.</em> introduced the Reflexion framework that added more bells and whistles by (1) integrating LLM-driven self-reflection with external feedback signal to serve as the final feedback and (2) incorporating short-term memory of conversation history (i.e.&nbsp;trajectory) and long-term memory of past verbal feedback. By using an evaluator LLM to score the latest LLM response and using another LLM to suggest actionable feedback based on the score, Reflexion improves the quality of the feedback. With memory of the LLM’s past interactions with the envornment and their outcomes, the actor LLM essentially undergoes reinforcement learning based on in-context learning examples. The Reflexion framework is best illustrated with the diagram in <a href="#fig-2" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>.</p>
+<div id="fig-2" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="./pics/reflexion.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.2: Reflexion framework. Source: “Reflexion: Language Agents with Verbal Reinforcement Learning” (https://arxiv.org/pdf/2303.11366).
 </figcaption>
 </figure>
@@ -228,6 +296,261 @@ Figure&nbsp;3.2: Reflexion framework. Source: “Reflexion: Language Agents with
 </section>
 <section id="react" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="react"><span class="header-section-number">3.2</span> ReAct</h2>
+<p>ReAct, which stands for reasoning and acting, is a prompting technique to combine reasoning and acting with language models to solve diverse language reasoning and decision making tasks <span class="citation" data-cites="yao2023react">(<a href="#ref-yao2023react" role="doc-biblioref">Yao et al. 2023</a>)</span>. By interspersing actions and subsequent observations with a LLM’s reasoning traces, Yao <em>et al.</em> showed that this reduces hallucination and error propagation, demonstrating superior performance over baselines like standard prompting, chain-of-thought prompting (i.e.&nbsp;reasoning only), and acting only (i.e.&nbsp;ReAct without thoughts). It is believed that reasoning improves an agent’s subsequent actions via mechanisms such as introducing notions of planning, injecting extra parametric knowledge, or by extracting important parts of observations.</p>
+<p>Concretely, ReAct prompting induces a repeating pattern of thinking, acting, and receiving observation until a task is solved. Starting with a question, ReAct prompting invokes the LLM to output thinking traces on how to solve the problem, followed by another LLM invocation on what action to output given the thinking. The selected action is executed, then the corresponding observation is added to the agent’s short-term memory (i.e.&nbsp;conversation history), and the process repeats. Thus, the number of LLM calls is <span class="math inline">\(O(N)\)</span> in the number <span class="math inline">\(N\)</span> of think, act, and observation iterations required to solve a problem, making ReAct prompting relatively expensive. However, ReAct improves the flexibility of an agent to address open-ended requests dynamically. Additionally, Yao <em>et al.</em> reported ReAct introduces strong generalization capabilities to new problems with just a few in-context examples.</p>
+<p>We next use ReAct to implement an agent that uses reasoning and internet search to recommend where to live in the United States based on their preferences. Our ReAct prompt first describes to the LLM that we wish to solve the problem using a thinking, action, and observation pattern, instructing the LLM output format at each step, explaining the action space, and how to end. Then, this is followed by a one-shot example of a thought, action, and observation pattern used to address a sample question. The prompt ends by instructing the agent to <em>only</em> output tokens for action or thinking.</p>
+<div id="12b5f300-708b-4627-9e27-8ca8fc8cd39a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2025-09-24T05:40:06.598699Z&quot;,&quot;iopub.status.busy&quot;:&quot;2025-09-24T05:40:06.598394Z&quot;,&quot;iopub.status.idle&quot;:&quot;2025-09-24T05:40:06.603942Z&quot;,&quot;shell.execute_reply&quot;:&quot;2025-09-24T05:40:06.602871Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2025-09-24T05:40:06.598673Z&quot;}}" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>SYSTEM_PROMPT <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">You are an assistant trying to help me determine which city in the United States I should live in.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ROLE_PROMPT <span class="op">=</span> <span class="st">"""</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">Solve a question answering task with interleaving Thought, Action, Observation steps. </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="st">Respond ONLY with ONE JSON-complaint string of the format:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Thought" or "Action"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "content of Thought, Action, or Observation"</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="st">The "content" of Action is either "Search[arguments]" or "Finish[answer]", where:</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="st">-`"Search[arguments]"` means to search the web with arguments</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="st">-`"Finish[answer]"` means to finish the steps with an answer. You should output `"Finish[answer]"` as soon as you've gathered enough information</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="st">  to answer the question.</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="st">The "content" of Thought is a reasoning about what Action to take next based on previous Observation. DO NOT output new lines for Thought content.</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="st">Example pattern:</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="st">Question: </span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="st">"Which city should I live in and what activities does it provide? I enjoy walkable cities."</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="st">Thought 1:</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Thought"</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "To find which city you should live in, I need to search for a list of most walkable cities in the </span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="st">                United States and their temperatures."</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="st">Action 1:</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Action"</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "Search[Most walkable American cities]"</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="st">Observation 1:</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Observation"</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "One of the most walkable cities in the U.S. is New York."</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="st">Thought 2:</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Thought"</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "I need to search what hobbies or activities are available in New York."</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="st">Action 2:</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Action"</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "Search[What hobbies or activities are available in New York?]"</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="st">Observation 2:</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Observation"</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "From big highlights like Times Square to quaint walks locals love. New York City is a hub of culture </span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="st">                and adventure, offering an array of activities for everyone. Explore iconic landmarks like the Statue </span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="st">                of Liberty, the Empire State Building, and Central Park, or marvel at art of the Museum of Modern Art."</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="st">Thought 3:</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Thought"</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "From the search results, New York City is the most walkable city in America with hobbies or activites </span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="st">                like exploring city landmarks or visiting museums."</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="st">Action 3:</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="sc">{{</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="st">    "type": "Action"</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="st">    "content": "Finish[I recommend you live in New York City, which is one of the most walkable cities in America. There </span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="st">                       you can explore city landmarks Statue of Liberty, the Empire State Building, and Central Park, or marvel </span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="st">                       at art of the Museum of Modern Art]"</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="sc">}}</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="st">...</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="st">Return type and content for ONE step ONLY</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>To implement the actual agent, we essentially wrap the LLM call within a while loop until a maximum number of steps is reached. The agent class is additionally equipped with:</p>
+<ul>
+<li>Short-term memory, implemented simply as a string in this protype.</li>
+<li>The internet search tool <code>DuckDuckGoSearchRun</code>, which simply accepts a natural language query and responds with a paragraph of text results.</li>
+</ul>
+<p>Then, in each iteration we parse the LLM response to decide what action to take. The initial question and subsequent thoughts, actions, and observations are continually added to the conversation history to influence what the LLM will output next. For example, if the last item in the history is an observation, then the LLM will output a thinking trace based on following the ReAct prompt.</p>
+<div id="3f6787eb-ca45-4883-bc18-4a4f53a88f39" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2025-09-24T05:40:09.506615Z&quot;,&quot;iopub.status.busy&quot;:&quot;2025-09-24T05:40:09.505766Z&quot;,&quot;iopub.status.idle&quot;:&quot;2025-09-24T05:40:09.517290Z&quot;,&quot;shell.execute_reply&quot;:&quot;2025-09-24T05:40:09.516270Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2025-09-24T05:40:09.506582Z&quot;}}" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> langchain_community.tools <span class="im">import</span> DuckDuckGoSearchRun</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> boto3</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ReAct_agent:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, client, system_prompt, role_prompt, max_steps<span class="op">=</span><span class="dv">20</span>, search_max_length<span class="op">=</span><span class="dv">1000</span>):</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.client <span class="op">=</span> client</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.SYSTEM_PROMPT <span class="op">=</span> system_prompt</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ROLE_PROMPT <span class="op">=</span> role_prompt</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ddg_search <span class="op">=</span> DuckDuckGoSearchRun()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.max_steps <span class="op">=</span> max_steps</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.step_num <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.search_max_length <span class="op">=</span> search_max_length</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.history <span class="op">=</span> <span class="st">""</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> ask(<span class="va">self</span>, message, verbose <span class="op">=</span> <span class="va">True</span>):</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.add_to_memory(message)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        model_response <span class="op">=</span> <span class="va">self</span>.invoke_llm(message)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        model_response_json <span class="op">=</span> json.loads(model_response.replace(<span class="st">"```json"</span>, <span class="st">""</span>).replace(<span class="st">"```"</span>, <span class="st">""</span>).strip())</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        response_type <span class="op">=</span> model_response_json[<span class="st">"type"</span>]</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="va">self</span>.step_num <span class="op">&lt;</span> <span class="va">self</span>.max_steps:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.add_to_memory(model_response)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> response_type <span class="op">==</span> <span class="st">"Action"</span>:</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                prefix, content <span class="op">=</span> <span class="va">self</span>.parse_action(model_response_json[<span class="st">"content"</span>])</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> prefix <span class="op">==</span> <span class="st">"Finish"</span>:</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">return</span> content</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                <span class="cf">elif</span> prefix <span class="op">==</span> <span class="st">"Search"</span>:</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                    observation <span class="op">=</span> <span class="va">self</span>.search(content)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> verbose:</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(json.dumps({<span class="st">"type"</span>: <span class="st">"Observation"</span>, <span class="st">"content"</span>: observation}, indent<span class="op">=</span><span class="dv">4</span>))</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                    <span class="va">self</span>.add_to_memory(json.dumps({<span class="st">"type"</span>: <span class="st">"Observation"</span>, <span class="st">"content"</span>: observation}))</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            model_response <span class="op">=</span> <span class="va">self</span>.invoke_llm(<span class="va">self</span>.history)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            model_response_json <span class="op">=</span> json.loads(model_response.replace(<span class="st">"```json"</span>, <span class="st">""</span>).replace(<span class="st">"```"</span>, <span class="st">""</span>).strip())</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            response_type <span class="op">=</span> model_response_json[<span class="st">"type"</span>]</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> verbose:</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(json.dumps(model_response_json, indent<span class="op">=</span><span class="dv">4</span>))</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.step_num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> search(<span class="va">self</span>, message):</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.ddg_search.invoke(message)[:<span class="va">self</span>.search_max_length]</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> invoke_llm(<span class="va">self</span>, message):</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>        bedrock_runtime_response <span class="op">=</span> bedrock_runtime.converse(</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>            modelId <span class="op">=</span> <span class="st">"us.anthropic.claude-3-7-sonnet-20250219-v1:0"</span>,</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>            system <span class="op">=</span> [</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>                {<span class="st">'text'</span>: <span class="va">self</span>.SYSTEM_PROMPT}, </span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>                {<span class="st">'text'</span>: <span class="va">self</span>.ROLE_PROMPT}</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>            ],</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>            messages <span class="op">=</span> [{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: [{<span class="st">"text"</span>: message}]}]</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> bedrock_runtime_response[<span class="st">"output"</span>][<span class="st">'message'</span>][<span class="st">'content'</span>][<span class="dv">0</span>][<span class="st">'text'</span>]</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add_to_memory(<span class="va">self</span>, message):</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.history <span class="op">+=</span> <span class="st">", "</span> <span class="op">+</span> message</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> parse_action(<span class="va">self</span>, message):</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> message.find(<span class="st">'['</span>)</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        end <span class="op">=</span> message.find(<span class="st">']'</span>)</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        prefix <span class="op">=</span> message[:start]</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        content <span class="op">=</span> message[start<span class="op">+</span><span class="dv">1</span>:end]</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> prefix, content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we ask the agent where we should live if we prefer cities with access to nature and outdoor activities.</p>
+<div id="3acfb5b9-0ca7-4a09-b08f-3d927cef969c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2025-09-24T05:40:14.352669Z&quot;,&quot;iopub.status.busy&quot;:&quot;2025-09-24T05:40:14.350666Z&quot;,&quot;iopub.status.idle&quot;:&quot;2025-09-24T05:40:47.589922Z&quot;,&quot;shell.execute_reply&quot;:&quot;2025-09-24T05:40:47.588801Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2025-09-24T05:40:14.352616Z&quot;}}" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>bedrock_runtime <span class="op">=</span> boto3.client(<span class="st">"bedrock-runtime"</span>, region_name<span class="op">=</span><span class="st">"us-west-2"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>agent <span class="op">=</span> ReAct_agent(bedrock_runtime, SYSTEM_PROMPT, ROLE_PROMPT, max_steps <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>user_input <span class="op">=</span> <span class="st">"Which city should I live in? I enjoy outdoor activities."</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>answer <span class="op">=</span> agent.ask(user_input)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(answer)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{
+    "type": "Action",
+    "content": "Search[best US cities for outdoor activities]"
+}
+{
+    "type": "Observation",
+    "content": "Nov 16, 2024 \u00b7 Adventure awaits in these top 10 US cities ! Discover destinations perfect for hiking, biking, skiing, and more outdoor activities across America. Mar 19, 2025 \u00b7 15 U.S . Cities with the Best Outdoor Activities for Nature Lovers March 19, 2025 by Donna Dizon Leave a Comment Many nature lovers long to live in a cabin out in the country, but for most of us, that\u2019s not a reality. Sep 2, 2025 \u00b7 Read Time: 8 min read Summary: Looking for the best cities for outdoor activities in the U.S .? Check out Alexandria, VA for its beautiful parks and trails, Boston, MA for skiing and kayaking, Denver, CO for mountain adventures, Portland, OR for hiking and camping, Roseville, CA for river rafting and national parks, Salt Lake City, UT for skiing and hiking, and Seattle, WA for fishing and ... Image Editorial Credit: Farragutful via Wikimedia Commons Park City is a year-round outdoor destination famous for its ski resorts, including the largest ski area in the US . In the winter, the a"
+}
+{
+    "type": "Thought",
+    "content": "Based on the search results, I've found several cities that are known for outdoor activities. The top contenders appear to be Denver, CO; Portland, OR; Salt Lake City, UT; Seattle, WA; and Park City, UT. I should get more specific information about a few of these cities to provide better recommendations. Let me search for more details about Denver, as it's known for mountain adventures which could be appealing for outdoor enthusiasts."
+}
+{
+    "type": "Action",
+    "content": "Search[outdoor activities in Denver Colorado]"
+}
+{
+    "type": "Observation",
+    "content": "Mar 7, 2025 \u2014 There are tons of opportunities to go hiking, running and fly-fishing in and around the city. Denver is a paradise for cyclists with bike lanes and paved paths ... 11 hours ago \u2014 1. Small Group Tour of Pikes Peak and the Garden of the Gods from Denver \u00b7 2. Discover Rocky Mountain National Park \u00b7 3. Red Rocks &amp; Beyond \u00b7 4 ... The conversation discusses various day trip destinations and activities in Colorado, including Tiny Town , Cheyenne Mountain Zoo, Georgetown Railroad, and South ... Apr 8, 2025 \u2014 Denver's spring and summer months are packed with free things to do like strolling through the city's vast park system , checking out rock 'n' roll ... May 6, 2025 \u2014 1. Tour the Colorado State Capitol \u00b7 2. Tour the Denver Mint \u00b7 3. Visit one of Denver's many museums \u00b7 4. Immerse yourself in the city's art scene \u00b7 5. Enjoy ..."
+}
+{
+    "type": "Thought",
+    "content": "Denver appears to be a great option for outdoor activities, with hiking, running, fly-fishing, cycling paths, and proximity to attractions like Rocky Mountain National Park, Pikes Peak, and Garden of the Gods. Let me check another popular option from the list - Portland, OR - to provide a comparative recommendation."
+}
+{
+    "type": "Action",
+    "content": "Search[outdoor activities in Portland Oregon]"
+}
+{
+    "type": "Observation",
+    "content": "United States Oregon (OR) Portland Things to Do in Portland Outdoor Activities in Portland Founded by Filipina cyclocross racer Gritchelle Fallesgon and Korean-born cyclist Molly Sugar, Friends on Bikes diversifies the cycling scene by connecting and hosting rides for women and non-binary people of color. Launched in 2017, this Portland -based group organizes monthly all-levels social rides, as well as \u201cbike-packing\u201d trips, workshops and ... See full list on travelportland.com Dedicated to inspiring, connecting and engaging Latino communities in the outdoors, Latino Outdoors PDX organizes events and showcases how conservation roots have been ingrained in Latino cultura for generations. See full list on travelportland.com Through outings, skill session, and climb nights at local rock climbing gyms, PDX Climbers of Colorlevels the playing field by eliminating the social and economic roadblocks that typically make the sport inaccessible. See full list on travelportland.com Portland \u2019s Pam"
+}
+{
+    "type": "Thought",
+    "content": "I've gathered information about Denver and Portland, two cities known for outdoor activities. Denver offers hiking, running, fly-fishing, cycling paths, and proximity to natural attractions like Rocky Mountain National Park. Portland has a strong cycling community and climbing opportunities. To make a more comprehensive recommendation, I should explore another top contender for outdoor activities - Seattle, WA."
+}
+{
+    "type": "Action",
+    "content": "Search[outdoor activities in Seattle Washington]"
+}
+{
+    "type": "Observation",
+    "content": "From hiking &amp; biking to kayaking &amp; skiing add a dash of adventure to your vacation with these fun outdoor activities in Seattle , Washington ! Aug 28, 2025 \u00b7 Log off, switch off and reconnect with the outdoors with these top picks of the best outdoor activities in Seattle . It's no secret that Washington boasts beautiful nature spots. Seattle itself, although it's a big city, is a hub for nature lovers with its plethora of parks, waterfront access, arboretums, and lake activities . There are so many outdoorsy things to do in Seattle , you'll get to fall in love with Washington's nature all from the convenience of staying in Seattle . What are the top water activities in Seattle ? Lake Union is the go-to spot for water activities in Seattle . Rent a kayak or paddleboard and enjoy gliding past the historic houseboats, including the one featured in \"Sleepless in Seattle .\" Lake Washington also offers opportunities for boating, paddleboarding, and wildlife spotting. Explore Seattle's stunn"
+}
+{
+    "type": "Thought",
+    "content": "I now have information about three top cities for outdoor enthusiasts: Denver, Portland, and Seattle. Each offers unique outdoor experiences. Denver has mountain activities, hiking, cycling, and proximity to natural wonders. Portland has a cycling culture and climbing opportunities. Seattle offers water activities on Lake Union and Lake Washington, hiking, biking, kayaking, and skiing. To make a well-informed recommendation, I should look at one more city from the initial list - Salt Lake City, which was mentioned as good for skiing and hiking."
+}
+{
+    "type": "Action",
+    "content": "Search[outdoor activities in Salt Lake City Utah]"
+}
+{
+    "type": "Observation",
+    "content": "Founded in 2020, the Outdoor Market Alliance is a non-profit association dedicated to supporting community-driven initiatives. We are a collective of 25 independent sales and marketing \u2026 Apr 15, 2025 \u00b7 It\u2019s often overshadowed by attractions in Denver, but the state\u2019s fifth-largest city features fun outdoor recreation, historic sites, and stellar places to shop and dine. This guide \u2026 REI Lakewood provides outdoor enthusiasts in the Lakewood, Colorado, area with top-brand gear &amp; clothing for camping, climbing, cycling, fitness, hiking, paddling, skiing, snowboarding and \u2026 Top-brand gear, clothing\u2014and outdoor adventures! Plus rentals, classes, events, expert advice and more. Visit REI Co-op online and in-store. Explore 12 top spots with great access and hunter lodging. Outdoor Life has been the go-to publication of America\u2019s diehard hunters, shooters, and anglers since 1898. Our stories are \u2026"
+}
+{
+    "type": "Thought",
+    "content": "The search results for Salt Lake City didn't provide specific information about outdoor activities there, though it was mentioned in the initial search as being good for skiing and hiking. From the information I've gathered about Denver, Portland, and Seattle, I now have enough details to make a recommendation. All three cities offer excellent outdoor activities, but they have different strengths. Denver is great for mountain activities, hiking, and proximity to natural parks. Portland has a strong cycling and climbing culture. Seattle offers water activities as well as hiking, biking, and winter sports. I should now provide a recommendation based on this comprehensive information."
+}
+{
+    "type": "Action",
+    "content": "Finish[Based on your interest in outdoor activities, I recommend Denver, Colorado as an excellent city to live in. Denver offers an exceptional variety of outdoor recreation opportunities including hiking, running, cycling on extensive bike paths, and fly-fishing in and around the city. You'll have access to world-class natural attractions like Rocky Mountain National Park, Pikes Peak, and Garden of the Gods. The city has a robust park system and enjoys abundant sunshine year-round, making it ideal for outdoor enthusiasts. Alternatives worth considering are Portland, Oregon (known for its cycling culture and climbing opportunities) and Seattle, Washington (which offers water activities like kayaking and paddleboarding on Lake Union and Lake Washington, plus nearby hiking, biking and skiing).]"
+}
+Based on your interest in outdoor activities, I recommend Denver, Colorado as an excellent city to live in. Denver offers an exceptional variety of outdoor recreation opportunities including hiking, running, cycling on extensive bike paths, and fly-fishing in and around the city. You'll have access to world-class natural attractions like Rocky Mountain National Park, Pikes Peak, and Garden of the Gods. The city has a robust park system and enjoys abundant sunshine year-round, making it ideal for outdoor enthusiasts. Alternatives worth considering are Portland, Oregon (known for its cycling culture and climbing opportunities) and Seattle, Washington (which offers water activities like kayaking and paddleboarding on Lake Union and Lake Washington, plus nearby hiking, biking and skiing).</code></pre>
+</div>
+</div>
+<p>We see that with ReAct prompting, the agent first got a list of candidate cities, then searched each candidate city for specific outdoor activities before returning the final answer, which is Denver, Colorado.</p>
+</section>
+<section id="llm-as-optimizers" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="llm-as-optimizers"><span class="header-section-number">3.3</span> LLM as Optimizers</h2>
+<p>Yang <em>et al.</em> from DeepMind showed that a LLM can even be used to optimize numerical and discrete problems, using linear regression and the traveling salesman problem as example problems <span class="citation" data-cites="yang2023large">(<a href="#ref-yang2023large" role="doc-biblioref">Yang et al. 2023</a>)</span>. Given the <em>meta-prompt</em>, which desribe the problem, and a set of candidate solutions and their corresponding scores, the LLM can utilize in-context learning to iteratively improve its solution. Crucially, this requires an external objection function evaluator to score solutions at each iteration, which are then added to the growing set of solution-score pairs. The solution-score pairs are sorted to presumably better help the LLM identify patterns that can be used to further refine the solution. <a href="#fig-3" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>.</p>
+<div id="fig-3" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./pics/llm_as_optimizer.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.3: Optimization by prompting framework. Source: “Large Language Models as Optimizers” (https://arxiv.org/pdf/2309.03409).
+</figcaption>
+</figure>
+</div>
+<p>[example prompt]</p>
+<p>[prompt optimization]</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -245,6 +568,12 @@ Madaan, Aman, Niket Tandon, Prakhar Gupta, Skyler Hallinan, Luyu Gao, Sarah Wieg
 </div>
 <div id="ref-shinn2023reflexion" class="csl-entry" role="listitem">
 Shinn, Noah, Federico Cassano, Beck Labash, Ashwin Gopinath, Karthik Narasimhan, and Shunyu Yao. 2023. <span>“Reflexion: Language Agents with Verbal Reinforcement Learning, 2023.”</span> <em>URL Https://Arxiv. Org/Abs/2303.11366</em> 1.
+</div>
+<div id="ref-yang2023large" class="csl-entry" role="listitem">
+Yang, Chengrun, Xuezhi Wang, Yifeng Lu, Hanxiao Liu, Quoc V Le, Denny Zhou, and Xinyun Chen. 2023. <span>“Large Language Models as Optimizers.”</span> In <em>The Twelfth International Conference on Learning Representations</em>.
+</div>
+<div id="ref-yao2023react" class="csl-entry" role="listitem">
+Yao, Shunyu, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. 2023. <span>“React: Synergizing Reasoning and Acting in Language Models.”</span> In <em>International Conference on Learning Representations (ICLR)</em>.
 </div>
 </div>
 </section>
@@ -301,13 +630,14 @@ Shinn, Noah, Federico Cassano, Beck Labash, Ashwin Gopinath, Karthik Narasimhan,
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
