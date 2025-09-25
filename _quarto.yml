@@ -13,6 +13,7 @@ book:
         - introduction.ipynb
         - context.ipynb
         - reflection.ipynb
+        - planning.ipynb
 
 format:
   html:

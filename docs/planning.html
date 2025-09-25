@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Calvin Chi">
-<meta name="dcterms.date" content="2025-07-18">
 
-<title>LLM Agentic Systems</title>
+<title>4&nbsp; Planning – LLM Agentic Systems</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./introduction.html" rel="next">
+<link href="./reflection.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -84,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./planning.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Planning</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -113,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -146,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./planning.html" class="sidebar-item-text sidebar-link">
+  <a href="./planning.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Planning</span></span></a>
   </div>
 </li>
@@ -162,35 +160,24 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#rewoo" id="toc-rewoo" class="nav-link active" data-scroll-target="#rewoo"><span class="header-section-number">4.1</span> ReWOO</a></li>
+  <li><a href="#least-to-most-prompting" id="toc-least-to-most-prompting" class="nav-link" data-scroll-target="#least-to-most-prompting"><span class="header-section-number">4.2</span> Least-to-Most Prompting</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Concepts</a></li><li class="breadcrumb-item"><a href="./planning.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Planning</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">LLM Agentic Systems</h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Planning</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Calvin Chi </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 18, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -200,10 +187,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>In March of 2025, I had the new exciting opportunity to join a new team developing foundational models and AI agents. Since the field of agents is new and rapidly evolving, the number of established texts or formal courses on AI agents is sparse. A common joke in this field is that by the time someone writes a book, half of the content becomes outdated when finished. Instead, most people that I know stay up to date by continually reading blogs, tweets, and papers. However, without a comprehensive text, it can be hard to see how concepts fit together within the bigger picture. This is true especially when definitions are still being debated, new perspectives are still being developed, and new terms are being invented. A recent example is the term “context engineering”, which gained popularity after a <a href="https://x.com/tobi/status/1935533422589399127" target="_blank">discussion on X</a> on June of 2025, where the term was introduced to unify the goals of prompt engineering, memory management, tool use, etc.</p>
-<p>I started this online book as an attempt to organize and aggregate the lessons I learned along the way as I build agents. I use the structure of a book to organize ideas and concepts coherently, and choose the format to be online to easily incorporate updates in the field, which are frequent. The contents are drawn from my learnings from research papers, blogs, talks, and the practical experience of building agents. My goal is to write in sufficient levels of depth and detail to reveal how things work “underneath the hood”, which may be difficult to see when most frameworks and agent-building tools abstract away those details. However, knowing these details is more empowering as it allows us to build more freely, concretely, and effectively, instead of attributing certain agentic abilties to “magic”. Hence, this book will have a focus on describing low-level agent mechanisms with code illustrations when appropriate. Given how new and evolving the field of AI agents are, the definitions and perspectives of this book may not necessarily align with everyone’s views or stand the test of time, nor are they meant to be comprehensive. Rather, the aim is to provide <em>one</em> valid mental model of how agents work to help people get started with building agents.</p>
+<section id="rewoo" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="rewoo"><span class="header-section-number">4.1</span> ReWOO</h2>
+</section>
+<section id="least-to-most-prompting" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="least-to-most-prompting"><span class="header-section-number">4.2</span> Least-to-Most Prompting</h2>
+<p>https://arxiv.org/abs/2205.10625</p>
 
 
 </section>
@@ -611,11 +600,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./reflection.html" class="pagination-link" aria-label="Reflection">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reflection</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

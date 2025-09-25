@@ -85,6 +85,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./planning.html" rel="next">
 <link href="./context.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -226,6 +227,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reflection</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./planning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Planning</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -241,6 +248,7 @@ window.Quarto = {
   <li><a href="#self-correction-with-external-feedback" id="toc-self-correction-with-external-feedback" class="nav-link active" data-scroll-target="#self-correction-with-external-feedback"><span class="header-section-number">3.1</span> Self-Correction with External Feedback</a></li>
   <li><a href="#react" id="toc-react" class="nav-link" data-scroll-target="#react"><span class="header-section-number">3.2</span> ReAct</a></li>
   <li><a href="#llm-as-optimizers" id="toc-llm-as-optimizers" class="nav-link" data-scroll-target="#llm-as-optimizers"><span class="header-section-number">3.3</span> LLM as Optimizers</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -558,6 +566,9 @@ Figure&nbsp;3.3: Optimization by prompting framework. Source: “Large Language 
 </blockquote>
 <p>In the above meta-prompt, the orange text are the instructions for linear regression and the blue text are the set of candidate solutions are the weight values <span class="math inline">\(w, b\)</span> along with their sum of squared error (presumably).</p>
 <p>As a more practical application, Yang <em>et al.</em> used the LLM to optimize the prompt for a given task. Specifically, the meta-prompt contains a statement that the goal is to generate a prompt (i.e.&nbsp;meta-instructions), examples of the output format, and past prompt-score pairs. After generation, a scorer LLM or objective function computes accuracy scores for these new prompts. The meta-prompt is then updated with the best new prompt-score pairs for further optimization.</p>
+</section>
+<section id="references" class="level1 unnumbered">
+<h1 class="unnumbered">References</h1>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -993,6 +1004,9 @@ Yao, Shunyu, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, a
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./planning.html" class="pagination-link" aria-label="Planning">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Planning</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
